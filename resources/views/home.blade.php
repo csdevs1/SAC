@@ -66,7 +66,7 @@
             <div class="col s8 light-green z-depth-2">
                 <span>Total Compa&#241;&#205;as:</span>
                 <p class="stats-number">{{$companies}}</p>
-                <a href="#">Ver mas <i class="material-icons">visibility</i></a>
+                <a class="load-companies modal-trigger" href="#modal4">Ver mas <i class="material-icons">visibility</i></a>
             </div>
         </div>
     </div>
@@ -94,7 +94,7 @@
                         <div class="card">
                             <div class="card-image">
                                 <img src="/images/report.jpg" class="">
-                                <a href="#"><span class="card-title">Reporte Ticket</span></a>
+                                <a href="/reporte"><span class="card-title">Reporte Ticket</span></a>
                             </div>
                             <div class="card-content">
                                 <p>I am a very simple card. I am good at containing small bits of information.
@@ -155,6 +155,28 @@
             <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cerrar</a>
         </div>
     </div>
+
+    <div id="modal4" class="modal" >
+        <div class="modal-content">
+            <table class="striped centered">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Nombre</th>
+                        <th>Telefono</th>
+                        <th>No Empleados</th>
+                        <th>Acci&#243;n</th>
+                    </tr>
+                </thead>
+                <tbody id="companies-list">
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cerrar</a>
+        </div>
+    </div>
+
 </div>
 
     <!-- ======================================================= -->
@@ -378,7 +400,7 @@
             });
         });
 
-        var get_user = function(id,path){
+        var get_all = function(id,path){
             return $.ajax({
                 type: 'GET',
                 dataType: 'json',
@@ -394,7 +416,7 @@
 
         $(document).on('click','.edit-user',function(){
             var user_id=$(this).attr('user-id'),
-                u=get_user(user_id,'user');
+                u=get_all(user_id,'user');
             var form='<form class="col s12"><input type="hidden" id="user_id" value="'+user_id+'"><div class="row"><div class="input-field col s4"><input id="first_name" type="text" class="validate"><label for="first_name">Nombre</label></div><div class="input-field col s4"><input id="password" type="password" class="validate"><label for="password">Contrase&#241;a</label></div><div class="input-field col s4"><input id="username" type="text" class="validate"><label for="username">Nombre de Usuario</label></div></div><div class="row"><div class="input-field col s6"><input id="email" type="email" class="validate"><label for="email">Email</label></div><div class="input-field col s6"><select id="user_role"></select><label>Rol</label></div></div></form>';
 
             if($('.save_edit').hasClass('edit_technician'))
@@ -499,7 +521,7 @@
 
         $(document).on('click','.edit-sac',function(){
             var sac_id=$(this).attr('sac-id'),
-                u=get_user(sac_id,'sac');
+                u=get_all(sac_id,'sac');
             var form='<form class="col s12"><input type="hidden" id="sac_id" value="'+sac_id+'"><div class="row"><div class="input-field col s12"><input id="sac_name" type="text" class="validate"><label for="sac_name">Nombre</label></div></div></form>';
 
             if($('.save_edit').hasClass('edit_user'))
@@ -870,6 +892,28 @@
                     }
                 });
             });
+
+
+        /*==============================================================
+                                    Companies
+          ==============================================================*/
+        $(document).on('click','.load-companies',function(){
+            var c = get_info('companies');
+            c.done(function(companies){
+                $('#companies-list').html('');
+                $('#modal4 table').fadeIn('slow');
+                for(var i in companies){
+                    var html='<tr company-id="'+companies[i]['id']+'">';
+                    html+='<td><img class="responsive-img" style="max-width:35px;" src="/images/'+companies[i]['logo']+'" ></td>';
+                    html+='<td>'+companies[i]['name']+'</td>';
+                    html+='<td>'+companies[i]['phone']+'</td>';
+                    html+='<td>'+companies[i]['n_employees']+'</td>';
+                    html+='<td></td>';
+                    html+='</tr>';
+                    $('#companies-list').append(html);
+                }
+            });
+        });
     </script>
     <script src="/js/Tickets/update_ticket.js"></script>
 @endsection

@@ -45,8 +45,9 @@ Route::get('/get/ticket/', 'TicketController@getTickets');
 Route::get('/get/company/vehicles', 'VehicleController@get_by_company');
 #End
 
-#Company Group
+#Company
 Route::get('/get/company/groups', 'CompanyController@get_groups');
+Route::get('/get/companies', 'CompanyController@get_companies');
 #End
 
 #Carrier
@@ -68,6 +69,12 @@ Route::post('/edit/user', 'UserController@edit');
 Route::get('/get/technicians', 'SacController@get');
 Route::get('/get/sac', 'SacController@getTechnicianById');
 Route::post('/edit/sac', 'SacController@edit');
+#END
+
+#GRAPH
+Route::get('/reporte', 'GraphController@index');
+Route::get('/graph/get/attention', 'GraphController@getNTicketByAttention');
+Route::get('/graph/get/device', 'GraphController@getNTicketByDevice');
 #END
 
 Route::get('/roles', 'RoleController@show');

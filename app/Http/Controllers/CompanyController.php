@@ -46,4 +46,21 @@ class CompanyController extends Controller
         \Log::info($group);
         return response()->json($group);
     }
+
+    public function get_companies(){
+        $companies=Company::get();
+        $arr=array();
+        foreach($companies as $k=>$v){
+            $temp=array(
+                'id'=>$v->id,
+                'name'=>$v->name,
+                'phone'=>$v->phone,
+                'logo'=>$v->logo,
+                'n_employees'=>$v->employees->count()
+            );
+            array_push($arr,$temp);
+        }
+        \Log::info('Companies: '.json_encode($arr));
+        return response()->json($arr);
+    }
 }

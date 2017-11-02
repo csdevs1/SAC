@@ -199,6 +199,8 @@ CREATE TABLE tickets (
 	report VARCHAR(255) NOT NULL,
 	solution VARCHAR(255) NOT NULL DEFAULT '',
 	reported_by integer NOT NULL,
+	time_taken DOUBLE PRECISION NOT NULL,
+    attention VARCHAR(255) NOT NULL DEFAULT '',
 	id_user integer NOT NULL,
 	id_sac integer NOT NULL,
 	id_installer integer DEFAULT NULL,

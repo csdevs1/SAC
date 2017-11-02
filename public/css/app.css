@@ -79,7 +79,7 @@ header:not(.header) a, header label {
     vertical-align: middle;
     text-shadow: 0 0 0;
 }
-.stats span{
+.stats span,.comfortaa{
     font-family: 'Comfortaa', cursive;
     margin-top: 2px;
     font-size: 1.3rem;

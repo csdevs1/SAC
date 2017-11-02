@@ -63,6 +63,7 @@ class TicketController extends Controller
     public function create(Request $request){
         $input=json_decode($request['ticket_data'],true);
         $input['id_user']=Auth::user()->id;
+        \Log::info($input);
         $response=$this->save($input);
         return response()->json($response);
     }

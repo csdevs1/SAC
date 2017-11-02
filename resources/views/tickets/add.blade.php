@@ -120,7 +120,20 @@
 
                     </div>
                     <div class="row" style="margin-bottom:0;">
-                        <div class="input-field col s12">
+                        <div class="input-field col s4">
+                            <input id="time_taken" type="number" step="0.1" class="validate" disabled>
+                            <label for="time_taken">Horas Ocupadas</label>
+                        </div>
+                        <div class="input-field col s4">
+                            <select disabled id="attention" name="attention">
+                                <option value="" disabled selected>-- Via de Atenci&#243;n --</option>
+                                <option value="email">Email</option>
+                                <option value="telefono">Telefono</option>
+                                <option value="presencial">Presencial</option>
+                            </select>
+                            <label>Via de Atenci&#243;n</label>
+                        </div>
+                        <div class="input-field col s4">
                             <select disabled id="plates" name="plates">
                                 <option value="" disabled selected>-- Seleccionar Patente --</option>
                             </select>
@@ -639,6 +652,8 @@
                 $('input').removeAttr('disabled');
                 $('textarea').removeAttr('disabled');
                 $('#save').removeClass('disabled');
+                $('#attention').removeClass('disabled');
+                $('#time_taken').removeClass('disabled');
                 $('#plates').html('');
                 $('#reported_by').html('');
                 $('select').not(this).find('option:eq(0)').prop('selected', true);
@@ -810,6 +825,8 @@
                 id_plate=$('#plates').val(),
                 id_group=$('#groups').val(),
                 id_carrier=$('#carriers').val(),
+                attention=$('#attention').val(),
+                time_taken=$('#time_taken').val(),
                 arr={},
                 errors=[];
             if(title!='') arr['title']=title;
@@ -832,6 +849,10 @@
             else errors.push("Debe seleccionar un Grupo");
             if(id_carrier!='') arr['id_carrier_group']=id_carrier;
             else errors.push("Debe seleccionar un transportista");
+            if(attention!='') arr['attention']=attention;
+            else errors.push("Debe una via de atencion");
+            if(time_taken!='') arr['time_taken']=time_taken;
+            else errors.push("Debe indicar las horas de atencion.");
 
             if(Object.keys(arr).length >=8){
                 if(solution!='')

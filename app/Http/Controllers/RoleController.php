@@ -29,7 +29,7 @@ class RoleController extends Controller
      */
     public function show()
     {
-        $roles=Rol::select(['id','role_name'])->get();
+        $roles=Role::select(['id','role_name'])->get();
         $response=array();
         foreach($roles as $key=>$role){
             $permissions=$role->role_permission;
